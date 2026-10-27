@@ -1,0 +1,15 @@
+{
+  "name": "swipelux",
+  "description": "Swipelux plugins for AI agents",
+  "owner": {
+    "name": "Swipelux",
+    "url": "https://www.swipelux.com"
+  },
+  "plugins": [
+    {
+      "name": "swipelux-dev",
+      "source": "./plugins/swipelux-dev",
+      "description": "Operate your Swipelux account from your agent: customers, capabilities, Tasks, documents, accounts, recipients, quotes and transfers."
+    }
+  ]
+}

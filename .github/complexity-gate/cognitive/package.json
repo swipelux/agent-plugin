@@ -1,0 +1,11 @@
+{
+  "name": "complexity-gate-cognitive",
+  "private": true,
+  "description": "Cognitive-complexity tooling (eslint + sonarjs) with modern TypeScript.",
+  "dependencies": {
+    "@typescript-eslint/parser": "7.18.0",
+    "eslint": "8.57.0",
+    "eslint-plugin-sonarjs": "0.25.1",
+    "typescript": "5.4.5"
+  }
+}

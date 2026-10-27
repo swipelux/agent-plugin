@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "swipelux": { "type": "http", "url": "https://www.swipelux.app/api/mcp" },
+    "swipelux-docs": { "type": "http", "url": "https://docs.swipelux.com/mcp" }
+  }
+}

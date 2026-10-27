@@ -1,0 +1,20 @@
+{
+  "name": "swipelux",
+  "interface": {
+    "displayName": "Swipelux"
+  },
+  "plugins": [
+    {
+      "name": "swipelux-dev",
+      "source": {
+        "source": "local",
+        "path": "./plugins/swipelux-dev"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
+    }
+  ]
+}

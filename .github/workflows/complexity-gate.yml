@@ -1,0 +1,36 @@
+name: Complexity gate
+
+on:
+  pull_request:
+    branches: [main]
+
+# Supersede in-progress runs for the same ref (a new push cancels the old run)
+# so an open PR doesn't stack full runs on every push.
+concurrency:
+  group: complexity-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  complexity-gate:
+    # This name is the status check the org "Protect main" ruleset requires.
+    # Keep it byte-for-byte equal to the ruleset; rename only together with it.
+    name: "Complexity gate (cognitive ≤ 15, MI ≥ 75)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 20
+
+      - name: Install gate tooling (cognitive)
+        working-directory: .github/complexity-gate/cognitive
+        run: npm ci --no-audit --no-fund
+
+      - name: Run complexity gate
+        run: node .github/complexity-gate/gate.mjs
+        env:
+          GITHUB_BASE_REF: ${{ github.base_ref }}

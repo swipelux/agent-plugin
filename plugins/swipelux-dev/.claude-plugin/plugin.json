@@ -1,0 +1,20 @@
+{
+  "name": "swipelux-dev",
+  "version": "0.1.0",
+  "description": "Operate your Swipelux account from your agent: customers, capabilities, Tasks, documents, accounts, recipients, quotes and transfers.",
+  "author": {
+    "name": "Swipelux",
+    "url": "https://www.swipelux.com"
+  },
+  "homepage": "https://docs.swipelux.com/integration/ai-agents",
+  "repository": "https://github.com/swipelux/agent-plugin",
+  "license": "MIT",
+  "privacyPolicyUrl": "https://www.swipelux.com/legal/privacy-policy",
+  "keywords": [
+    "payments",
+    "stablecoins",
+    "compliance",
+    "banking"
+  ],
+  "displayName": "Swipelux for Developers"
+}
