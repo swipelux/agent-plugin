@@ -1,0 +1,31 @@
+{
+  "name": "swipelux-dev",
+  "version": "0.1.0",
+  "description": "Operate your Swipelux account from your agent: customers, capabilities, Tasks, documents, accounts, recipients, quotes and transfers.",
+  "author": {
+    "name": "Swipelux",
+    "url": "https://www.swipelux.com"
+  },
+  "homepage": "https://docs.swipelux.com/integration/ai-agents",
+  "repository": "https://github.com/swipelux/agent-plugin",
+  "license": "MIT",
+  "keywords": ["payments", "stablecoins", "compliance", "banking"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Swipelux for Developers",
+    "shortDescription": "Operate your Swipelux account from Codex",
+    "longDescription": "Create customers, request capabilities, answer Bank Tasks, issue wallets and bank accounts, and quote and send transfers in your Swipelux account. Start in a sandbox space.",
+    "developerName": "Swipelux",
+    "category": "Finance",
+    "capabilities": [],
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/logo.png",
+    "defaultPrompt": ["Create a sandbox customer in Swipelux and show what it can request"],
+    "websiteURL": "https://www.swipelux.com",
+    "privacyPolicyURL": "https://www.swipelux.com/legal/privacy-policy",
+    "termsOfServiceURL": "https://www.swipelux.com/legal/terms-of-use",
+    "supportURL": "mailto:support@swipelux.com",
+    "screenshots": []
+  }
+}
