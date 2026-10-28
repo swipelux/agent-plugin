@@ -8,8 +8,8 @@ MCP_URL='"https://www.swipelux.app/api/mcp"'
 DOCS_URL='"https://docs.swipelux.com/mcp"'
 
 for f in .claude-plugin/marketplace.json .agents/plugins/marketplace.json \
-         "$PLUGIN/.claude-plugin/plugin.json" "$PLUGIN/plugin.json" \
-         "$PLUGIN/.mcp.json" "$PLUGIN/mcp.json"; do
+         "$PLUGIN/.claude-plugin/plugin.json" "$PLUGIN/.codex-plugin/plugin.json" \
+         "$PLUGIN/.mcp.json"; do
   jq -e . "$f" >/dev/null || { echo "invalid JSON: $f"; exit 1; }
 done
 
@@ -20,20 +20,22 @@ else
   echo "claude CLI not found; skipping claude plugin validate"
 fi
 
-# Both hosts point at the same two servers.
-for f in "$PLUGIN/.mcp.json" "$PLUGIN/mcp.json"; do
+# Both hosts read the same .mcp.json; Codex finds it through .codex-plugin/plugin.json.
+[ "$(jq -r .mcpServers "$PLUGIN/.codex-plugin/plugin.json")" = "./.mcp.json" ] || { echo "Codex manifest must point mcpServers at ./.mcp.json"; exit 1; }
+[ "$(jq -r .skills "$PLUGIN/.codex-plugin/plugin.json")" = "./skills/" ] || { echo "Codex manifest must point skills at ./skills/"; exit 1; }
+for f in "$PLUGIN/.mcp.json"; do
   [ "\"$(jq -r '.mcpServers.swipelux.url' "$f")\"" = "$MCP_URL" ] || { echo "account MCP URL wrong: $f"; exit 1; }
   [ "\"$(jq -r '.mcpServers["swipelux-docs"].url' "$f")\"" = "$DOCS_URL" ] || { echo "docs MCP URL wrong: $f"; exit 1; }
 done
 
 # Plugin names agree across manifests and marketplaces.
-names=$(jq -r .name "$PLUGIN/.claude-plugin/plugin.json" "$PLUGIN/plugin.json" \
+names=$(jq -r .name "$PLUGIN/.claude-plugin/plugin.json" "$PLUGIN/.codex-plugin/plugin.json" \
   && jq -r '.plugins[].name' .claude-plugin/marketplace.json .agents/plugins/marketplace.json)
 [ "$(sort -u <<<"$names")" = "swipelux-dev" ] || { echo "plugin names differ: $names"; exit 1; }
 
 # Versions agree across both plugin manifests.
 v1=$(jq -r .version "$PLUGIN/.claude-plugin/plugin.json")
-v2=$(jq -r .version "$PLUGIN/plugin.json")
+v2=$(jq -r .version "$PLUGIN/.codex-plugin/plugin.json")
 [ "$v1" = "$v2" ] || { echo "version mismatch: $v1 vs $v2"; exit 1; }
 
 skills=("$PLUGIN"/skills/*/SKILL.md)
